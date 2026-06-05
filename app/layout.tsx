@@ -1,34 +1,33 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { AuthProvider } from "@/components/AuthProvider";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ClearNotes | AI-Powered Meeting Summaries for Project Managers",
-  description: "Save 2-3 hours weekly with ClearNotes. AI-driven action item extraction tailored for project management. Integrates with Asana and Trello. Focus on deliverables, not documentation.",
-  keywords: ["meeting summaries", "project management", "AI action items", "Asana integration", "Trello integration", "meeting notes"],
-  authors: [{ name: "Venture" }],
-  openGraph: {
-    title: "ClearNotes | AI-Powered Meeting Summaries",
-    description: "Save 2-3 hours weekly with AI-driven action item extraction for project managers.",
-    type: "website",
-  },
+  title: "ClearNotes - AI Meeting Notetaker",
+  description: "ClearNotes automatically joins your meetings, transcribes conversations, and extracts action items. Get organized meeting summaries and actionable insights.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+  const session = await getServerSession(authOptions);
+
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="antialiased font-sans">
-        {children}
+    <html lang="en">
+      <body className={inter.className}>
+        <AuthProvider>
+          <div id="modal-root"></div>
+          {children}
+          <Toaster position="bottom-right" />
+        </AuthProvider>
       </body>
     </html>
   );

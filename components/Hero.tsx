@@ -7,10 +7,8 @@ export default function Hero() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle waitlist signup
-    console.log("Waitlist signup:", email);
-    setEmail("");
-    alert("Thanks for joining the waitlist!");
+    // Redirect to register with email pre-filled
+    window.location.href = `/register?email=${encodeURIComponent(email)}`;
   };
 
   return (
@@ -37,22 +35,30 @@ export default function Hero() {
           <a href="#pricing" className="hover:text-sand-900 transition-colors">Pricing</a>
           <a href="#social-proof" className="hover:text-sand-900 transition-colors">Testimonials</a>
         </div>
-        <a
-          href="#waitlist"
-          className="px-4 py-2 text-sm font-medium text-sky-blue-700 bg-sky-blue-100 hover:bg-sky-blue-200 rounded-full transition-colors"
-        >
-          Join Waitlist
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href="/login"
+            className="px-4 py-2 text-sm font-medium text-sand-600 hover:text-sand-900 transition-colors"
+          >
+            Sign in
+          </a>
+          <a
+            href="/register"
+            className="px-4 py-2 text-sm font-medium text-white bg-sky-blue-600 hover:bg-sky-blue-700 rounded-full transition-colors"
+          >
+            Get Started
+          </a>
+        </div>
       </nav>
 
       {/* Hero content */}
       <div className="relative z-10 px-6 pt-16 pb-24 md:pt-24 md:pb-32 max-w-7xl mx-auto">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full bg-mint-100/80 border border-mint-200">
+          <a href="/dashboard" className="inline-flex items-center gap-2 px-3 py-1.5 mb-8 rounded-full bg-mint-100/80 border border-mint-200 hover:bg-mint-100 transition-colors cursor-pointer">
             <span className="w-2 h-2 rounded-full bg-mint-500 animate-pulse" />
-            <span className="text-xs font-medium text-mint-800">Now in private beta</span>
-          </div>
+            <span className="text-xs font-medium text-mint-800">Now available for free</span>
+          </a>
 
           {/* Headline */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-sand-900 tracking-tight leading-[1.1] mb-6">
@@ -80,7 +86,7 @@ export default function Hero() {
               type="submit"
               className="px-6 py-3 rounded-lg bg-sand-900 text-white font-medium hover:bg-sand-800 active:scale-[0.98] transition-all shadow-lg shadow-sand-900/10"
             >
-              Get Early Access
+              Sign Up Free
             </button>
           </form>
 
